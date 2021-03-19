@@ -5,7 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 const NavBar = () => {
 	return (
 		<>
-			<Navbar bg="secondary" variant="secondary">
+			<Navbar bg="secondary">
 				<LinkContainer className="navbar-brand" to="/">
 					<Navbar.Brand>LOGO</Navbar.Brand>
 				</LinkContainer>
