@@ -13,8 +13,8 @@ function App() {
 	return (
 		<AuthContext>
 			<Router>
+				<NavBar />
 				<Container>
-					<NavBar />
 					<Switch>
 						<PrivateRoute exact path="/" component={HomePage} />
 						<PrivateRoute path="/tasks" component={Task} />

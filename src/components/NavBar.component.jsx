@@ -5,18 +5,18 @@ import { LinkContainer } from "react-router-bootstrap";
 const NavBar = () => {
 	return (
 		<>
-			<Navbar variant="secondary">
-				<LinkContainer to="/">
+			<Navbar bg="secondary" variant="secondary">
+				<LinkContainer className="navbar-brand" to="/">
 					<Navbar.Brand>LOGO</Navbar.Brand>
 				</LinkContainer>
 				<Nav className="mr-auto">
-					<LinkContainer exact to="/">
+					<LinkContainer className="nav-item" exact to="/">
 						<Nav.Link>Home</Nav.Link>
 					</LinkContainer>
-					<LinkContainer to="/tasks">
+					<LinkContainer className="nav-item" to="/tasks">
 						<Nav.Link>Tasks</Nav.Link>
 					</LinkContainer>
-					<LinkContainer to="/user">
+					<LinkContainer className="nav-item" to="/user">
 						<Nav.Link>User</Nav.Link>
 					</LinkContainer>
 				</Nav>
