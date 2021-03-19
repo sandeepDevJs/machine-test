@@ -8,14 +8,16 @@ const Task = () => {
 	const [data, setdata] = useState([]);
 	const [err, seterr] = useState("");
 	const [loading, setloading] = useState(true);
-	const [show, setShow] = useState(false);
 
 	//rerender flag
 	const [value, setValue] = useState(0);
 
+	//for Modal
+	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	//on Submitting(Adding Via Modal) task
 	const handleSubmit = (e, task) => {
 		e.preventDefault();
 		task = task.trim();
@@ -32,8 +34,11 @@ const Task = () => {
 			id: Math.floor(Math.random() * 200 + 10),
 		});
 
+		//set tasks in local storage
 		localStorage.setItem("tasks", JSON.stringify(tasks));
 		handleClose();
+
+		//set rerender
 		setValue((value) => value + 1);
 	};
 
@@ -42,11 +47,15 @@ const Task = () => {
 			let taskDataFromLocalStorage = JSON.parse(localStorage.getItem("tasks"))
 				? JSON.parse(localStorage.getItem("tasks"))
 				: [];
+			//filter out
 			taskDataFromLocalStorage = taskDataFromLocalStorage.filter(
 				(tdata) => tdata.id !== id
 			);
+			//set tasks in local storage
 			localStorage.setItem("tasks", JSON.stringify(taskDataFromLocalStorage));
 			alert("Task Deleted!");
+
+			//set rerender
 			setValue((value) => value + 1);
 		}
 	};
