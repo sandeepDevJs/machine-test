@@ -15,7 +15,10 @@ const DropDown = ({ data, settext }) => {
 			<Dropdown.Menu>
 				{data.length &&
 					data.map((posts) => (
-						<Dropdown.Item onClick={() => onClickHandler(posts.body)}>
+						<Dropdown.Item
+							key={posts.id}
+							onClick={() => onClickHandler(posts.body)}
+						>
 							{posts.title}
 						</Dropdown.Item>
 					))}

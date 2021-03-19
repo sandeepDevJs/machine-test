@@ -5,7 +5,6 @@ import Loader from "../Loader.component";
 import AddModal from "./AddModal.component";
 
 const Task = () => {
-	const [data, setdata] = useState([]);
 	const [err, seterr] = useState("");
 	const [loading, setloading] = useState(true);
 
@@ -61,22 +60,26 @@ const Task = () => {
 	};
 
 	useEffect(() => {
-		axios
-			.get("http://jsonplaceholder.typicode.com/todos")
-			.then((res) => {
-				let taskDataFromLocalStorage = JSON.parse(localStorage.getItem("tasks"))
-					? JSON.parse(localStorage.getItem("tasks"))
-					: [];
-				setdata([...taskDataFromLocalStorage, ...res.data.slice(0, 4)]);
-				setloading(false);
-			})
-			.catch((err) => {
-				err.response && err.response.data.message
-					? seterr(err.response.data.message)
-					: seterr(err.message);
+		//if local storage has no data then
+		if (
+			!JSON.parse(localStorage.getItem("tasks")) ||
+			!JSON.parse(localStorage.getItem("tasks")).length
+		) {
+			axios
+				.get("http://jsonplaceholder.typicode.com/todos")
+				.then((res) => {
+					localStorage.setItem("tasks", JSON.stringify(res.data.slice(0, 6)));
+					setloading(false);
+				})
+				.catch((err) => {
+					err.response && err.response.data.message
+						? seterr(err.response.data.message)
+						: seterr(err.message);
 
-				setloading(false);
-			});
+					setloading(false);
+				});
+		}
+		setloading(false);
 	}, [value]);
 
 	return (
@@ -85,8 +88,9 @@ const Task = () => {
 			{err && <Alert variant="danger">{err}</Alert>}
 			<Table hover>
 				<tbody>
-					{data.length ? (
-						data.map((todo) => (
+					{JSON.parse(localStorage.getItem("tasks")) &&
+					JSON.parse(localStorage.getItem("tasks")).length ? (
+						JSON.parse(localStorage.getItem("tasks")).map((todo) => (
 							<tr key={todo.id}>
 								<td>{todo.id}</td>
 								<td>{todo.title}</td>
